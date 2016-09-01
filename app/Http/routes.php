@@ -1,0 +1,32 @@
+<?php
+
+Route::auth();
+Route::get('/', 'HomeController@index');
+Route::get('post/{id}', 'PostController@one');
+Route::get('posts', 'PostController@all');
+Route::get('posts/topic/{id}', 'PostController@allByTopicId');
+Route::get('topics', 'TopicController@all'); // like stackoverflow (show posts number of every topics)
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('profile', 'UserController@profile');
+    Route::get('post', 'PostController@create');
+    Route::post('post', 'PostController@store');
+    Route::get('post/{id}/update', 'PostController@update');
+    Route::get('topics/info', 'TopicController@allInfo'); // get all topics info to choose topic of post
+});
+
+
+//admin routes
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin\Auth'], function() {
+    Route::get('login', 'AuthController@getLogin');
+    Route::post('login', 'AuthController@postLogin');
+    Route::get('register', 'AuthController@getRegister');
+    Route::post('register', 'AuthController@postRegister');
+    Route::get('logout', 'AuthController@logout');
+});
+
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function() {
+    Route::get('/', 'HomeController@index');
+
+    Route::get('/topics', 'TopicController@all');
+});
