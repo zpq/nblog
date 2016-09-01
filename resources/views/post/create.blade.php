@@ -47,11 +47,11 @@
                         </div>
 
                         <div class="editor col-md-10">
-                            <textarea id='myEditor'></textarea>
+                            <textarea name="content" id='myEditor'></textarea>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-4 col-md-offset-2">
+                            <div class="col-md-2 col-md-offset-2">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-sign-in"></i> post
                                 </button>
@@ -70,6 +70,7 @@
             $("#topic").val($("select[name='topics'] option:selected").text());
         }
     });
+
 </script>
 
 @endsection

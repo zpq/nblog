@@ -18,11 +18,14 @@ class PostController extends Controller
     public function create() {
         $redis = Redis::connection('default');
         $topics = unserialize($redis->get("topicsInfo"));
-        if (count($topics)) {
+        if ($topics && count($topics)) {
 
         } else {
+            $topics = [];
             $topics = Topics::getTopicsInfo();
-            $redis->set("topicsInfo", serialize($topics));
+            if (count($topics)) {
+                $redis->set("topicsInfo", serialize($topics));
+            }
         }
         return view('post.create')->with("topics", $topics);
     }
