@@ -89,7 +89,7 @@ class PostController extends Controller
     public function storeWithUpdate(Request $request) {
         $this->validate($request, [
                 'id' => 'required',
-                'title' => 'required|unique:posts|max:128',
+                'title' => 'required|max:128',
 				'content' => 'required',
 				'topic' => 'required|max:32'
         ]);
