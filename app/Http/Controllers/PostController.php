@@ -29,6 +29,7 @@ class PostController extends Controller
         } else {
             abort(404);
         }
+        $post->content = preg_replace('/<script.*script>/i', '', $post->content);
         $post->content = EndaEditor::MarkDecode($post->content);
         return view('post.show')->with(["post" => $post, 'updateSign' => true]);
     }
